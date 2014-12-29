@@ -1,0 +1,7 @@
+{
+  "name": "testproj",
+  "version": "1.0.0",
+  "dependencies": {
+    "printable-wall-calendar": "CKUpdate/printable-wall-calendar#master"
+  }
+}
