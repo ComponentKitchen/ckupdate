@@ -62,8 +62,45 @@ describe( "packageAnalyzer", function() {
   it( "should analyze the /cases/test1/node_modules path", function( done ) {
     packageAnalyzer.analyzeNodeModulesPath( rootDirectory + "/test/server/cases/test1/node_modules" )
     .then( function() {
-      should.exist( packageAnalyzer.packages );
       packageAnalyzer.numPackages().should.equal( 1 );
+      var packageArray = packageAnalyzer.getPackageArray( "printable-wall-calendar" );
+      should.exist( packageArray );
+      packageArray.length.should.equal( 1 );
+      var packageItem = packageArray[ 0 ];
+      packageItem.packageName.should.equal( "printable-wall-calendar" );
+      packageItem.isPrimaryVersion.should.equal( true );
+      packageItem.packageVersion.should.equal( "2.0.0" );
+      should.exist( packageItem.sourcePath );
+    })
+    .done( function() {
+      done();
+    });
+  });
+
+  it( "should analyze the /cases/test1/node_modules/printable-wall-calendar/node_modules path", function( done ) {
+    packageAnalyzer.clear();
+    packageAnalyzer.analyzeNodeModulesPath(
+      rootDirectory + "/test/server/cases/test1/node_modules/printable-wall-calendar/node_modules" )
+    .then( function() {
+      packageAnalyzer.numPackages().should.equal( 5 );
+      var packageArray = packageAnalyzer.getPackageArray( "basic-button" );
+      should.exist( packageArray );
+      packageArray.length.should.equal( 1 );
+      var packageItem = packageArray[ 0 ];
+      packageItem.packageName.should.equal( "basic-button" );
+      packageItem.isPrimaryVersion.should.equal( true );
+      packageArray = packageAnalyzer.getPackageArray( "basic-calendar-month" );
+      should.exist( packageArray );
+      packageArray.length.should.equal( 1 );
+      packageArray = packageAnalyzer.getPackageArray( "basic-culture-selector" );
+      should.exist( packageArray );
+      packageArray.length.should.equal( 1 );
+      packageArray = packageAnalyzer.getPackageArray( "basic-days-of-week" );
+      should.exist( packageArray );
+      packageArray.length.should.equal( 1 );
+      packageArray = packageAnalyzer.getPackageArray( "Polymer" );
+      should.exist( packageArray );
+      packageArray.length.should.equal( 1 );
     })
     .done( function() {
       done();
