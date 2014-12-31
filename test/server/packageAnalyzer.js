@@ -106,4 +106,20 @@ describe( "packageAnalyzer", function() {
       done();
     });
   });
+
+  it ( "should recursively analyze the entire tree for /cases/test1", function( done ) {
+    packageAnalyzer.clear();
+    packageAnalyzer.analyzeTree( rootDirectory + "/test/server/cases/test1" )
+    .then( function() {
+      packageAnalyzer.numPackages().should.equal( 21 );
+      var packages = packageAnalyzer.getPackages();
+      var packageArray = packageAnalyzer.getPackageArray( "basic-culture-selector" );
+      should.exist( packageArray );
+      packageArray = packageAnalyzer.getPackageArray( "Polymer" );
+      should.exist( packageArray );
+    })
+    .done( function() {
+      done();
+    });
+  });
 });
