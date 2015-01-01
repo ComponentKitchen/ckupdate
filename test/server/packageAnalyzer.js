@@ -26,16 +26,6 @@ describe( "packageAnalyzer", function() {
     done();
   });
 
-  /*
-  it( "should have the current directory set to test/server/cases/test1", function( done ) {
-    process.chdir( rootDirectory + "/test/server/cases/test1" );
-    var currentDirectory = process.cwd();
-    should.exist( currentDirectory );
-    path.basename( currentDirectory).should.equal( "test1" );
-    done();
-  });
-  */
-
   it( "should read the package.json file in cases/test1", function( done ) {
     packageAnalyzer.loadPackageJson( rootDirectory + "/test/server/cases/test1" )
     .then( function( json ) {

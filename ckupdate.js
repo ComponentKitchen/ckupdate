@@ -5,7 +5,7 @@
 var Promise = require( "bluebird" );
 var fs = Promise.promisifyAll( require( "fs" ) );
 var logger = require( "./logger").logger( "ckupdate" );
-
+var PackageAnalyzer = require( "./lib/packageAnalyzer" );
 
 function processCommandLine( args ) {
   if ( args.length < 0 ) {
@@ -32,7 +32,14 @@ function execute() {
     return;
   }
 
-  console.log( "ckupdate completed successfully" );
+  var packageAnalyzer = new PackageAnalyzer();
+  return packageAnalyzer.analyzeTree( process.cwd() )
+  .then( function() {
+
+  })
+  .catch( function( error ) {
+    console.log( "ERR: " + error );
+  });
 }
 
 execute();
