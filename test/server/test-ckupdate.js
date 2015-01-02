@@ -4,6 +4,7 @@
 
 var Promise = require( "bluebird" );
 var path = require( "path" );
+var fs = Promise.promisifyAll( require( "fs-extra" ) );
 var should = require( "chai" ).should();
 var PackageAnalyzer = require( "../../lib/packageAnalyzer" );
 var FlatWriter = require( "../../lib/flatWriter" );
@@ -23,17 +24,22 @@ describe( "ckupdate", function() {
 
   it( "should flatten the packages in cases/test1", function( done ) {
     var flatWriter;
+    var destination = rootDirectory + "/test/server/cases/test1/bower_components";
 
     packageAnalyzer.analyzeTree( rootDirectory + "/test/server/cases/test1" )
     .then( function() {
-      flatWriter = new FlatWriter(
-        packageAnalyzer.getPackages(),
-        rootDirectory + "/test/server/cases/test1/bower_components" );
-
+      flatWriter = new FlatWriter( packageAnalyzer.getPackages(), destination );
       return flatWriter.deleteAll();
     })
     .then( function() {
       return flatWriter.write();
+    })
+    .then( function() {
+      return fs.readdirAsync( destination );
+    })
+    .then( function( directories ) {
+      should.exist( directories );
+      directories.length.should.equal( 21 );
     })
     .then( function() {
       return flatWriter.deleteAll();
