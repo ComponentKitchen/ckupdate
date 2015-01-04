@@ -88,7 +88,7 @@ describe( "packageAnalyzer", function() {
       packageArray = packageAnalyzer.getPackageArray( "basic-days-of-week" );
       should.exist( packageArray );
       packageArray.length.should.equal( 1 );
-      packageArray = packageAnalyzer.getPackageArray( "Polymer" );
+      packageArray = packageAnalyzer.getPackageArray( "polymer" );
       should.exist( packageArray );
       packageArray.length.should.equal( 1 );
     })
@@ -105,7 +105,7 @@ describe( "packageAnalyzer", function() {
       var packages = packageAnalyzer.getPackages();
       var packageArray = packageAnalyzer.getPackageArray( "basic-culture-selector" );
       should.exist( packageArray );
-      packageArray = packageAnalyzer.getPackageArray( "Polymer" );
+      packageArray = packageAnalyzer.getPackageArray( "polymer" );
       should.exist( packageArray );
     })
     .done( function() {
