@@ -7,6 +7,7 @@ var fs = Promise.promisifyAll( require( "fs" ) );
 var logger = require( "./logger").logger( "ckupdate" );
 var PackageAnalyzer = require( "./lib/packageAnalyzer" );
 var FlatWriter = require( "./lib/flatWriter" );
+var folderName = "bower_components";
 
 function processCommandLine( args ) {
   if ( args.length < 0 ) {
@@ -16,6 +17,21 @@ function processCommandLine( args ) {
 
   for ( var i = 0; i < args.length; i++ ) {
     switch( args[i] ) {
+      case "-h":
+      case "-help":
+      case "-?":
+      case "?":
+        usage();
+        return false;
+
+      case "-o":
+        if ( ++i >= args.length ) {
+          usage();
+          return false;
+        }
+        folderName = args[ i ];
+        break;
+
       default:
         break;
     }
@@ -25,7 +41,7 @@ function processCommandLine( args ) {
 }
 
 function usage() {
-  console.log( "ckupdate: node ckupdate.js" );
+  console.log( "ckupdate: node ckupdate.js [-o folderName]" );
 }
 
 function execute() {
@@ -34,7 +50,7 @@ function execute() {
   }
 
   var cwd = process.cwd();
-  var destination = cwd + "/bower_components";
+  var destination = cwd + "/" + folderName;
   var packageAnalyzer = new PackageAnalyzer();
 
   return packageAnalyzer.analyzeTree( process.cwd() )
