@@ -26,6 +26,7 @@ describe( "ckupdate", function() {
     var flatWriter;
     var destination = rootDirectory + "/test/server/cases/test1/bower_components";
 
+    packageAnalyzer.clear();
     packageAnalyzer.analyzeTree( rootDirectory + "/test/server/cases/test1" )
     .then( function() {
       flatWriter = new FlatWriter( packageAnalyzer.getPackages(), destination );
@@ -40,6 +41,34 @@ describe( "ckupdate", function() {
     .then( function( directories ) {
       should.exist( directories );
       directories.length.should.equal( 21 );
+    })
+    .then( function() {
+      return flatWriter.deleteAll();
+    })
+    .done( function() {
+      done();
+    });
+  });
+
+  it( "should flatten the packages in cases/test2", function( done ) {
+    var flatWriter;
+    var destination = rootDirectory + "/test/server/cases/test2/bower_components";
+
+    packageAnalyzer.clear();
+    packageAnalyzer.analyzeTree( rootDirectory + "/test/server/cases/test2" )
+    .then( function() {
+      flatWriter = new FlatWriter( packageAnalyzer.getPackages(), destination );
+      return flatWriter.deleteAll();
+    })
+    .then( function() {
+      return flatWriter.write();
+    })
+    .then( function() {
+      return fs.readdirAsync( destination );
+    })
+    .then( function( directories ) {
+      should.exist( directories );
+      directories.length.should.equal( 12 );
     })
     .then( function() {
       return flatWriter.deleteAll();

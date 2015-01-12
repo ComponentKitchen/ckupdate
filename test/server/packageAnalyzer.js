@@ -112,4 +112,29 @@ describe( "packageAnalyzer", function() {
       done();
     });
   });
+
+  it( "should recursively analyze the tree for /cases/test2 and find two versions of basic-element", function( done ) {
+    packageAnalyzer.clear();
+    packageAnalyzer.analyzeTree( rootDirectory + "/test/server/cases/test2" )
+    .then( function() {
+      packageAnalyzer.numPackages().should.equal( 13 );
+      var packages = packageAnalyzer.getPackages();
+      var packageArray = packageAnalyzer.getPackageArray( "basic-element" );
+      should.exist( packages );
+      should.exist( packageArray );
+      packageArray.length.should.equal( 2 );
+      for ( var i = 0; i < packageArray.length; i++ ) {
+        var packageItem = packageArray[ i ];
+        if ( packageItem.version == "0.0.1" ) {
+          packageItem.isPrimary.should.equal( false );
+        }
+        if ( packageItem.version == "0.0.1000" ) {
+          packageItem.isPrimary.should.equal( true );
+        }
+      }
+    })
+    .done( function() {
+      done();
+    });
+  });
 });

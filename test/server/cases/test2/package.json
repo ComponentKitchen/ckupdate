@@ -1,7 +1,8 @@
 {
   "name": "testproj",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {
-    "basic-element": "CKUpdate/basic-element#master"
+    "basic-culture-selector": "CKUpdate/basic-culture-selector",
+    "basic-element": "CKUpdate/basic-element#0.0.1000"
   }
 }
