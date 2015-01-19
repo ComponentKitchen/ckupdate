@@ -50,6 +50,11 @@ function execute() {
   }
 
   var cwd = process.cwd();
+  // Note: Since we build destination as a folder off the current working directory,
+  // we don't need to worry about ckupdate being used to blow away a critical system
+  // directory unless the user sets the working directory to, say, root and specifies
+  // a folder name like "etc". This would require conscious mischievousness on the part
+  // of the user.
   var destination = cwd + "/" + folderName;
   var packageAnalyzer = new PackageAnalyzer();
 

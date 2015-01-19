@@ -43,6 +43,22 @@ describe( "ckupdate", function() {
       directories.length.should.equal( 21 );
     })
     .then( function() {
+      // Repeat the experiment, but test that flatWriter.write() first clears the output tree
+      packageAnalyzer.clear();
+      return packageAnalyzer.analyzeTree( rootDirectory + "/test/server/cases/test1" )
+    })
+    .then( function() {
+      flatWriter = new FlatWriter( packageAnalyzer.getPackages(), destination );
+      return flatWriter.write();
+    })
+    .then( function() {
+      return fs.readdirAsync( destination );
+    })
+    .then( function( directories ) {
+      should.exist( directories );
+      directories.length.should.equal( 21 );
+    })
+    .then( function() {
       return flatWriter.deleteAll();
     })
     .done( function() {
