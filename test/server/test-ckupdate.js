@@ -29,7 +29,7 @@ describe( "ckupdate", function() {
     packageAnalyzer.clear();
     packageAnalyzer.analyzeTree( rootDirectory + "/test/server/cases/test1" )
     .then( function() {
-      flatWriter = new FlatWriter( packageAnalyzer.getPackages(), destination );
+      flatWriter = new FlatWriter( packageAnalyzer.getPackages(), destination, true );
       return flatWriter.deleteAll();
     })
     .then( function() {
@@ -48,7 +48,7 @@ describe( "ckupdate", function() {
       return packageAnalyzer.analyzeTree( rootDirectory + "/test/server/cases/test1" )
     })
     .then( function() {
-      flatWriter = new FlatWriter( packageAnalyzer.getPackages(), destination );
+      flatWriter = new FlatWriter( packageAnalyzer.getPackages(), destination, true );
       return flatWriter.write();
     })
     .then( function() {
@@ -73,7 +73,9 @@ describe( "ckupdate", function() {
     packageAnalyzer.clear();
     packageAnalyzer.analyzeTree( rootDirectory + "/test/server/cases/test2" )
     .then( function() {
-      flatWriter = new FlatWriter( packageAnalyzer.getPackages(), destination );
+      //console.log( "" );
+      //packageAnalyzer.describeConflictResolutions();
+      flatWriter = new FlatWriter( packageAnalyzer.getPackages(), destination, true );
       return flatWriter.deleteAll();
     })
     .then( function() {
