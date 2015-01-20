@@ -12,5 +12,8 @@
   "keywords": [
     "web-components",
     "flatten"
-  ]
+  ],
+  "scripts": {
+    "postinstall": "../../bin/ckupdate -o components"
+  }
 }

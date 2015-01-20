@@ -73,9 +73,9 @@ describe( "ckupdate", function() {
     packageAnalyzer.clear();
     packageAnalyzer.analyzeTree( rootDirectory + "/test/server/cases/test2" )
     .then( function() {
-      //console.log( "" );
-      //packageAnalyzer.describeConflictResolutions();
+      // Note: Change true to false below to view the conflict resolution console output
       flatWriter = new FlatWriter( packageAnalyzer.getPackages(), destination, true );
+      flatWriter.describeConflictResolutions();
       return flatWriter.deleteAll();
     })
     .then( function() {
