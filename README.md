@@ -45,3 +45,7 @@ A project wishing to invoke ckupdate should add the following script to its pack
       }
     }
 
+### Demo
+
+See [ckupdate-demo](https://github.com/ComponentKitchen/ckupdate-demo) for a sample application that uses ckupdate to install
+web components.
